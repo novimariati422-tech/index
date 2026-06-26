@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae & Personal Landing Page - HRD Specialist</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Active navigation link style */
+        .nav-link-active {
+            color: #10b981 !important;
+            font-weight: 700;
+            border-bottom: 2px solid #10b981;
+        }
+
+        /* Glassmorphism custom styling */
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Indicator for editable areas */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #10b981;
+            outline-offset: 4px;
+            background-color: rgba(16, 185, 129, 0.05);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .editable-active [contenteditable="true"]:focus {
+            outline: 2px solid #059669;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        /* PRINT STYLES: Converts the landing page to a clean ATS-friendly document format */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-family: Arial, sans-serif !important;
+                font-size: 11pt !important;
+                line-height: 1.5 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* Hide web UI controls and decorations */
+            header, footer, .no-print, .interactive-controls, #edit-indicator-bar, .particles {
+                display: none !important;
+            }
+
+            /* Reset container widths for standard A4 paper layout */
+            .main-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                background: transparent !important;
+            }
+
+            /* Convert grid/flex columns back to clean vertical flows */
+            .grid {
+                display: block !important;
+            }
+            
+            /* Re-style core sections to mimic a traditional structured paper CV */
+            .cv-section {
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+            }
+
+            h1, h2, h3 {
+                color: #000000 !important;
+                border-bottom: 1px solid #cccccc !important;
+                padding-bottom: 4px !important;
+                margin-top: 15px !important;
+                margin-bottom: 10px !important;
+            }
+
+            .badge, .skill-tag {
+                background: #f3f4f6 !important;
+                border: 1px solid #e5e7eb !important;
+                color: #111827 !important;
+                padding: 2px 8px !important;
+                margin: 2px !important;
+                font-size: 9pt !important;
+                display: inline-block !important;
+            }
+
+            a {
+                text-decoration: underline !important;
+                color: #000000 !important;
+            }
+
+            /* Ensure editable outlines are never printed */
+            [contenteditable="true"] {
+                outline: none !important;
+                background: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/50 dark:border-slate-800/50 no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white font-bold text-lg">H</div>
+                <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">HRD Portal CV</span>
+            </div>
+            
+            <!-- Desktop Navigation Links with scrollspy-target capability -->
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#tentang" class="nav-item hover:text-emerald-500 transition-colors py-1">Tentang Saya</a>
+                <a href="#keahlian" class="nav-item hover:text-emerald-500 transition-colors py-1">Keahlian</a>
+                <a href="#pengalaman" class="nav-item hover:text-emerald-500 transition-colors py-1">Pengalaman</a>
+                <a href="#proyek" class="nav-item hover:text-emerald-500 transition-colors py-1">Proyek</a>
+                <a href="#pendidikan" class="nav-item hover:text-emerald-500 transition-colors py-1">Pendidikan</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <!-- Theme toggle button -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:ring-2 hover:ring-emerald-500 transition-all focus:outline-none" title="Ubah Tema">
+                    <!-- Sun Icon -->
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.46 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    <!-- Moon Icon -->
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+                
+                <!-- Print/Download Button -->
+                <button onclick="window.print()" class="hidden sm:flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-semibold shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    <span>Cetak / PDF</span>
+                </button>
+
+                <!-- Mobile Menu Button (Hamburger) -->
+                <button id="mobile-menu-btn" class="flex md:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:ring-2 hover:ring-emerald-500 transition-all focus:outline-none" aria-label="Menu Utama">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="hamburger-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg class="hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200/50 dark:border-slate-800/50 bg-white/95 dark:bg-slate-900/95 transition-all duration-300">
+            <div class="px-4 py-3 space-y-2 flex flex-col text-sm font-medium">
+                <a href="#tentang" class="mobile-nav-item hover:text-emerald-500 transition-colors py-2 px-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">Tentang Saya</a>
+                <a href="#keahlian" class="mobile-nav-item hover:text-emerald-500 transition-colors py-2 px-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">Keahlian</a>
+                <a href="#pengalaman" class="mobile-nav-item hover:text-emerald-500 transition-colors py-2 px-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">Pengalaman</a>
+                <a href="#proyek" class="mobile-nav-item hover:text-emerald-500 transition-colors py-2 px-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">Proyek</a>
+                <a href="#pendidikan" class="mobile-nav-item hover:text-emerald-500 transition-colors py-2 px-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">Pendidikan</a>
+                <button onclick="window.print()" class="flex sm:hidden items-center justify-center space-x-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-semibold shadow-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    <span>Cetak / PDF</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Customization Alert Indicator / Control Center (No-Print) -->
+    <div id="edit-indicator-bar" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-11/12 max-w-2xl bg-slate-900/95 text-white p-4 rounded-2xl shadow-2xl flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0 border border-emerald-500/30 no-print transition-all duration-300">
+        <div class="flex items-center space-x-3 text-center sm:text-left">
+            <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
+            <div>
+                <p class="font-bold text-sm">Mode Kustomisasi Aktif</p>
+                <p class="text-xs text-slate-400">Klik teks apa pun di bawah ini untuk mengedit langsung.</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+            <button onclick="toggleEditMode()" id="btn-toggle-edit" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-medium border border-slate-700 transition-colors">
+                Matikan Edit
+            </button>
+            <button onclick="resetToDefaults()" class="px-3 py-1.5 bg-rose-950/40 hover:bg-rose-900/40 text-rose-300 rounded-lg text-xs font-medium border border-rose-900/50 transition-colors">
+                Reset Data
+            </button>
+            <button onclick="window.print()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold shadow-lg shadow-emerald-500/20 transition-all">
+                Ekspor PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Background decorative grids -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] opacity-60 z-0 pointer-events-none"></div>
+
+    <!-- Main Interactive Workspace -->
+    <main class="main-container relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-32 z-10 editable-active">
+        
+        <!-- Header / Hero Section -->
+        <section class="cv-section mb-12 bg-white dark:bg-slate-800/80 rounded-3xl p-6 sm:p-10 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/50 dark:border-slate-800/80 transition-all">
+            <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+                <!-- Avatar & Status -->
+                <div class="relative group">
+                    <div class="w-32 h-32 rounded-2xl bg-gradient-to-tr from-emerald-400 to-teal-500 flex items-center justify-center text-white text-5xl font-extrabold shadow-lg shadow-emerald-500/20 relative overflow-hidden">
+                        <span id="cv-initials" contenteditable="true" class="relative z-10">HR</span>
+                        <!-- Abstract BG shapes -->
+                        <div class="absolute -bottom-2 -right-2 w-16 h-16 rounded-full bg-white/20 blur-md"></div>
+                        <div class="absolute -top-4 -left-4 w-16 h-16 rounded-full bg-black/10 blur-md"></div>
+                    </div>
+                    <!-- Badge -->
+                    <div class="absolute -bottom-2 -right-2 bg-emerald-500 text-white px-2.5 py-0.5 rounded-full text-xs font-bold border-2 border-white dark:border-slate-800 flex items-center space-x-1 shadow no-print">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                        <span contenteditable="true">Aktif</span>
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="flex-1 text-center md:text-left space-y-4">
+                    <div>
+                        <h1 id="cv-nama" contenteditable="true" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">
+                            [NAMA LENGKAP KAMU]
+                        </h1>
+                        <p id="cv-jabatan" contenteditable="true" class="text-lg font-semibold text-emerald-600 dark:text-emerald-400 tracking-wide uppercase">
+                            Human Resources Specialist / Specialist Rekrutmen
+                        </p>
+                    </div>
+
+                    <!-- Contact Details Badges -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm pt-2">
+                        <div class="flex items-center justify-center md:justify-start space-x-2 text-slate-600 dark:text-slate-300">
+                            <!-- Pin Icon -->
+                            <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span id="cv-lokasi" contenteditable="true">[Kota, Provinsi]</span>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start space-x-2 text-slate-600 dark:text-slate-300">
+                            <!-- Phone Icon -->
+                            <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span id="cv-kontak" contenteditable="true">[Nomor Telepon/WhatsApp]</span>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start space-x-2 text-slate-600 dark:text-slate-300">
+                            <!-- Mail Icon -->
+                            <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span id="cv-email" contenteditable="true">[Alamat Email Profesional]</span>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start space-x-2 text-slate-600 dark:text-slate-300">
+                            <!-- Linkedin Icon -->
+                            <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            <span id="cv-linkedin" contenteditable="true">[Tautan LinkedIn Kamu]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Panel / Dashboard style -->
+        <section class="cv-section no-print mb-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/60 dark:to-slate-800/20 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 text-center shadow-md">
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Pengalaman</p>
+                <div class="flex items-center justify-center space-x-1">
+                    <span id="stat-years" contenteditable="true" class="text-3xl font-extrabold text-slate-900 dark:text-white">3</span>
+                    <span class="text-lg font-bold text-emerald-500">+ Th</span>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/60 dark:to-slate-800/20 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 text-center shadow-md">
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Posisi Terisi</p>
+                <div class="flex items-center justify-center space-x-1">
+                    <span id="stat-positions" contenteditable="true" class="text-3xl font-extrabold text-slate-900 dark:text-white">50</span>
+                    <span class="text-lg font-bold text-emerald-500">+</span>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/60 dark:to-slate-800/20 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 text-center shadow-md">
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Karyawan Baru</p>
+                <div class="flex items-center justify-center space-x-1">
+                    <span id="stat-onboard" contenteditable="true" class="text-3xl font-extrabold text-slate-900 dark:text-white">120</span>
+                    <span class="text-lg font-bold text-emerald-500">+</span>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/60 dark:to-slate-800/20 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 text-center shadow-md">
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Employee Engagement</p>
+                <div class="flex items-center justify-center space-x-1">
+                    <span id="stat-engagement" contenteditable="true" class="text-3xl font-extrabold text-slate-900 dark:text-white">92</span>
+                    <span class="text-lg font-bold text-emerald-500">%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Split Grid: Left (Profile & Skills), Right (Experience & Educations) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column: Sidebar Details -->
+            <div class="lg:col-span-1 space-y-8">
+                
+                <!-- Section: Tentang Saya -->
+                <section id="tentang" class="cv-section bg-white dark:bg-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/50 dark:border-slate-800/80">
+                    <div class="flex items-center space-x-3 mb-5 pb-2 border-b border-slate-100 dark:border-slate-700/50">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                            <!-- Bio Icon -->
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Tentang Saya</h2>
+                    </div>
+                    <div id="cv-tentang-teks" contenteditable="true" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed space-y-3">
+                        <p>
+                            Seorang profesional di bidang Human Resources yang dinamis, komunikatif, dan berorientasi pada detail dengan pengalaman selama lebih dari 3 tahun dalam mengelola seluruh siklus rekrutmen, hubungan karyawan, serta administrasi SDM.
+                        </p>
+                        <p>
+                            Memiliki komitmen tinggi untuk menjembatani kebutuhan talenta terbaik dengan tujuan strategis perusahaan guna menciptakan lingkungan kerja yang produktif, inklusif, dan harmonis.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section: Keahlian & Kompetensi -->
+                <section id="keahlian" class="cv-section bg-white dark:bg-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/50 dark:border-slate-800/80">
+                    <div class="flex items-center space-x-3 mb-5 pb-2 border-b border-slate-100 dark:border-slate-700/50">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                            <!-- Skill Icon -->
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Keahlian & Core</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Technical Skill</h3>
+                            <div class="flex flex-wrap gap-1.5" id="tags-tech-skills">
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">End-to-End Recruitment</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Sourcing & Screening</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Employee Relations</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">HRIS & Database</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Ketenagakerjaan UU</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Basic Payroll</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Interpersonal Skill</h3>
+                            <div class="flex flex-wrap gap-1.5" id="tags-soft-skills">
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Negosiasi Persuasif</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Mediasi Konflik</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Komunikasi Publik</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Problem Solving</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Sistem & Tools</h3>
+                            <div class="flex flex-wrap gap-1.5" id="tags-tools-skills">
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Keka / Talenta</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">LinkedIn Recruiter</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Excel Advanced</span>
+                                <span contenteditable="true" class="skill-tag px-2.5 py-1 bg-slate-100 dark:bg-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg text-xs font-semibold border border-transparent hover:border-emerald-200/50 dark:hover:border-emerald-800/30 transition-all">Google Workspace</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Main Timeline (Experience & Educations) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Section: Pengalaman Kerja -->
+                <section id="pengalaman" class="cv-section bg-white dark:bg-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/50 dark:border-slate-800/80">
+                    <div class="flex items-center space-x-3 mb-8 pb-2 border-b border-slate-100 dark:border-slate-700/50">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                            <!-- Work Icon -->
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Pengalaman Kerja</h2>
+                    </div>
+
+                    <!-- Vertical Timeline -->
+                    <div class="relative border-l-2 border-slate-100 dark:border-slate-700 ml-4 space-y-10">
+                        
+                        <!-- Timeline Item 1 -->
+                        <div class="relative pl-8 group">
+                            <!-- Bullet -->
+                            <div class="absolute -left-[9px] top-1.5 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-800 border-4 border-emerald-500 group-hover:bg-emerald-500 transition-colors duration-300"></div>
+                            
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                                <div>
+                                    <h3 contenteditable="true" class="text-lg font-bold text-slate-950 dark:text-white leading-snug">HR Generalist / HR Staff</h3>
+                                    <p contenteditable="true" class="text-sm font-semibold text-emerald-600 dark:text-emerald-400">PT Maju Bersama Corp – Jakarta</p>
+                                </div>
+                                <span contenteditable="true" class="text-xs font-semibold px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 rounded-full self-start sm:self-center">
+                                    Jan 2024 – Sekarang
+                                </span>
+                            </div>
+                            
+                            <ul class="text-slate-600 dark:text-slate-300 text-sm space-y-2 list-disc list-outside pl-4">
+                                <li contenteditable="true">Berhasil memproses pengisian 25+ posisi kerja (dari level staf hingga manajerial) dalam kurun waktu kurang dari target time-to-hire rata-rata perusahaan sebesar 21 hari.</li>
+                                <li contenteditable="true">Menyusun dan mengimplementasikan inisiatif program employee engagement bulanan yang terbukti menaikkan skor kepuasan kerja internal karyawan sebesar 15%.</li>
+                                <li contenteditable="true">Mengelola administrasi harian SDM termasuk penyusunan perjanjian kerja (PKWT/PKWTT), laporan BPJS, serta pemeliharaan keakuratan data karyawan pada portal HRIS utama perusahaan.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Timeline Item 2 -->
+                        <div class="relative pl-8 group">
+                            <!-- Bullet -->
+                            <div class="absolute -left-[9px] top-1.5 w-4.5 h-4.5 rounded-full bg-white dark:bg-slate-800 border-4 border-teal-500 group-hover:bg-teal-500 transition-colors duration-300"></div>
+                            
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                                <div>
+                                    <h3 contenteditable="true" class="text-lg font-bold text-slate-950 dark:text-white leading-snug">HR Recruitment Intern (Magang)</h3>
+                                    <p contenteditable="true" class="text-sm font-semibold text-teal-600 dark:text-teal-400">Glowtech Solutions – Bandung</p>
+                                </div>
+                                <span contenteditable="true" class="text-xs font-semibold px-2.5 py-1 bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-400 rounded-full self-start sm:self-center">
+                                    Jul 2023 – Des 2023
+                                </span>
+                            </div>
+                            
+                            <ul class="text-slate-600 dark:text-slate-300 text-sm space-y-2 list-disc list-outside pl-4">
+                                <li contenteditable="true">Melakukan penyaringan (screening) terhadap lebih dari 100+ berkas CV lamaran kandidat setiap minggunya untuk memastikan kesesuaian kualifikasi teknis.</li>
+                                <li contenteditable="true">Mengoordinasikan jadwal interview antara kandidat potensial dengan user terkait dan melakukan update tindak lanjut proses perekrutan secara proaktif.</li>
+                                <li contenteditable="true">Membantu proses onboarding untuk mempercepat masa pengenalan lingkungan kerja dan budaya kerja bagi 30+ karyawan baru.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section: Proyek & Studi Kasus HRD (New Section) -->
+                <section id="proyek" class="cv-section bg-white dark:bg-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/50 dark:border-slate-800/80">
+                    <div class="flex items-center space-x-3 mb-6 pb-2 border-b border-slate-100 dark:border-slate-700/50">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                            <!-- Project Folder Icon -->
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Proyek & Studi Kasus HRD</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Project Card 1 -->
+                        <div class="p-5 rounded-2xl border border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30 hover:border-emerald-500/30 transition-all">
+                            <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">REKRUTMEN & TALENTA</span>
+                            <h3 contenteditable="true" class="text-base font-bold text-slate-900 dark:text-white mt-2 mb-1">Inovasi SOP Sourcing Digital</h3>
+                            <p contenteditable="true" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Membangun database pelamar pasif di LinkedIn Recruiter dan mengintegrasikan form aplikasi ATS instan. Berhasil memangkas biaya per rekrutmen hingga 35%.</p>
+                        </div>
+
+                        <!-- Project Card 2 -->
+                        <div class="p-5 rounded-2xl border border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30 hover:border-emerald-500/30 transition-all">
+                            <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">EMPLOYEE DEVELOPMENT</span>
+                            <h3 contenteditable="true" class="text-base font-bold text-slate-900 dark:text-white mt-2 mb-1">Sistem Penilaian KPI & OKR</h3>
+                            <p contenteditable="true" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Menyusun framework Key Performance Indicators (KPI) untuk 5 divisi internal. Menyelaraskan evaluasi kinerja akhir tahun secara transparan via software HRIS.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Grid: Education & Certifications -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Section: Riwayat Pendidikan -->
+                    <section id="pendidikan" class="cv-section bg-white dark:bg-slate-800/80 rounded-3xl p-6 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/50 dark:border-slate-800/80">
+                        <div class="flex items-center space-x-3 mb-5 pb-2 border-b border-slate-100 dark:border-slate-700/50">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                                <!-- Graduation Cap Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Pendidikan</h2>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h3 contenteditable="true" class="text-md font-bold text-slate-900 dark:text-white leading-snug">Universitas Indonesia</h3>
+                                <p contenteditable="true" class="text-sm font-semibold text-emerald-600 dark:text-emerald-400">S1 Psikologi / MSDM</p>
+                                <p contenteditable="true" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Lulus: 2023 | IPK: 3.65 / 4.00</p>
+                                <p contenteditable="true" class="text-xs text-slate-500 dark:text-slate-400 mt-1 italic">Aktif sebagai Ketua Divisi Humas Himpunan Mahasiswa Psikologi.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section: Sertifikasi & Kursus -->
+                    <section class="cv-section bg-white dark:bg-slate-800/80 rounded-3xl p-6 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/50 dark:border-slate-800/80">
+                        <div class="flex items-center space-x-3 mb-5 pb-2 border-b border-slate-100 dark:border-slate-700/50">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                                <!-- Certificate Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                            </div>
+                            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Sertifikasi</h2>
+                        </div>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-3">
+                            <li class="flex items-start space-x-2">
+                                <span class="text-emerald-500 font-extrabold select-none">•</span>
+                                <div class="flex-1">
+                                    <span contenteditable="true" class="font-bold block text-slate-900 dark:text-white">Certified Human Resource Professional (CHRP)</span>
+                                    <span contenteditable="true" class="text-xs text-slate-500">Unika Atma Jaya, 2024</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-emerald-500 font-extrabold select-none">•</span>
+                                <div class="flex-1">
+                                    <span contenteditable="true" class="font-bold block text-slate-900 dark:text-white">Sertifikasi BNSP Skema Staf HRD</span>
+                                    <span contenteditable="true" class="text-xs text-slate-500">LSP MSDM Unggul, 2023</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Section: Hubungi Saya (Web Only) -->
+        <section class="cv-section no-print mt-12 bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            <!-- Background element -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.15),transparent)] z-0"></div>
+            
+            <div class="relative z-10 max-w-2xl mx-auto text-center space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Butuh Konsultasi SDM atau Rekrutmen?</h2>
+                <p class="text-slate-100 text-sm sm:text-base">
+                    Hubungi saya untuk mendiskusikan bagaimana kita dapat menemukan talenta terbaik untuk perkembangan perusahaan Anda.
+                </p>
+                
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="mailto:emailanda@example.com" class="w-full sm:w-auto px-6 py-3 bg-white text-emerald-700 hover:bg-slate-100 font-bold rounded-xl shadow-lg transition-all text-center">
+                        Kirim Email Sekarang
+                    </a>
+                    <button onclick="salinKontak()" class="w-full sm:w-auto px-6 py-3 bg-emerald-800/40 hover:bg-emerald-800/60 border border-emerald-400/40 text-white font-bold rounded-xl transition-all">
+                        Salin No. WhatsApp
+                    </button>
+                </div>
+                
+                <!-- Feedback toast container inside card -->
+                <p id="alert-toast" class="hidden text-xs text-emerald-200 mt-2 italic animate-fade-in"></p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section (No-Print) -->
+    <footer class="bg-white dark:bg-slate-950 py-10 border-t border-slate-200/50 dark:border-slate-800/50 no-print transition-colors">
+        <div class="max-w-6xl mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-sm space-y-3">
+            <p>© 2026 HRD Landing Page CV. Dioptimalkan untuk kegunaan layar & cetak kertas A4.</p>
+            <p class="text-xs">Ubah draf data ini lalu tekan <strong class="text-slate-800 dark:text-white">Ctrl + P (atau Cmd + P)</strong> untuk mencetak dokumen format ATS-friendly secara langsung.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Init Light/Dark Mode Preference
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Check System Preference or localStorage
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        // Toggle Dark Mode Event
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // Mobile Hamburger Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking any mobile nav item
+        const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+        mobileNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // Scrollspy Active Navigation Highlighter Logic
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.cv-section');
+
+        function highlightActiveSection() {
+            let scrollPosition = window.scrollY + 120; // offset calculation
+
+            sections.forEach
