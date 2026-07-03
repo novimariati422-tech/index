@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Digital | Novi Indah</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        secondary: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 0.3);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(193, 201, 224, 0.7);
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(51, 65, 85, 0.7);
+        }
+
+        /* KEYFRAMES UNTUK EFEK ANIMASI HOLOGRAM BERGERAK */
+        @keyframes holoFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* KEYFRAMES UNTUK KOTAK GEOMETRIS MENGAMBANG */
+        @keyframes floatSlow {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg) scale(1.15);
+            }
+        }
+
+        @keyframes floatMedium {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1.2);
+            }
+            50% {
+                transform: translateY(-60px) rotate(-180deg) scale(0.9);
+            }
+        }
+
+        /* BACKGROUND HOLOGRAM */
+        .holo-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            background: linear-gradient(
+                125deg,
+                #ff9eb5 0%,
+                #ffb3db 15%,
+                #d3b5ff 30%,
+                #a8c7fa 45%,
+                #81f5ff 60%,
+                #9effda 75%,
+                #fff8b8 90%,
+                #ff9eb5 100%
+            );
+            background-size: 350% 350%;
+            animation: holoFlow 18s ease infinite;
+        }
+
+        /* Mode Gelap - Hologram dengan warna neon yang lebih deep & misterius */
+        .dark .holo-bg {
+            background: linear-gradient(
+                125deg,
+                #4e173e 0%,
+                #32154d 20%,
+                #131a4e 40%,
+                #083e4d 60%,
+                #084227 80%,
+                #4e173e 100%
+            );
+            background-size: 350% 350%;
+            animation: holoFlow 15s ease infinite;
+        }
+
+        /* Lapisan overlay agar tulisan tetap super kontras dan mudah dibaca */
+        .holo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -4;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(5px);
+        }
+        .dark .holo-overlay {
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(5px);
+        }
+
+        /* GRID DIGITAL TEKSTUR */
+        .holo-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            pointer-events: none;
+            background-size: 60px 60px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+        }
+        .dark .holo-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* DEKORASI KOTAK GEOMETRIS MENGAMBANG (GLASSMORPHISM) */
+        .floating-box-1 {
+            width: 120px;
+            height: 120px;
+            top: 15%;
+            left: 5%;
+            animation: floatSlow 12s ease-in-out infinite;
+        }
+        .floating-box-2 {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            right: 8%;
+            animation: floatMedium 15s ease-in-out infinite;
+        }
+        .floating-box-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 10%;
+            left: 8%;
+            animation: floatSlow 20s ease-in-out infinite;
+            animation-delay: -3s;
+        }
+        .floating-box-4 {
+            width: 90px;
+            height: 90px;
+            top: 25%;
+            right: 12%;
+            animation: floatMedium 10s ease-in-out infinite;
+            animation-delay: -5s;
+        }
+    </style>
+</head>
+<body class="text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col relative">
+
+    <!-- ELEMEN LATAR BELAKANG GEOMETRIS & HOLOGRAM -->
+    <div class="holo-bg"></div>
+    <div class="holo-overlay"></div>
+    <div class="holo-grid"></div>
+
+    <!-- Kotak Mengambang 1 -->
+    <div class="fixed floating-box-1 bg-white/10 dark:bg-slate-900/10 border border-white/20 dark:border-slate-800/30 rounded-2xl backdrop-blur-[2px] pointer-events-none -z-2 shadow-sm"></div>
+    <!-- Kotak Mengambang 2 -->
+    <div class="fixed floating-box-2 bg-white/10 dark:bg-slate-900/10 border border-white/20 dark:border-slate-800/30 rounded-xl backdrop-blur-[2px] pointer-events-none -z-2 shadow-sm"></div>
+    <!-- Kotak Mengambang 3 -->
+    <div class="fixed floating-box-3 bg-white/10 dark:bg-slate-900/10 border border-white/20 dark:border-slate-800/30 rounded-3xl backdrop-blur-[2px] pointer-events-none -z-2 shadow-sm"></div>
+    <!-- Kotak Mengambang 4 -->
+    <div class="fixed floating-box-4 bg-white/10 dark:bg-slate-900/10 border border-white/20 dark:border-slate-800/30 rounded-2xl backdrop-blur-[2px] pointer-events-none -z-2 shadow-sm"></div>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/60 dark:bg-slate-950/60 border-b border-white/20 dark:border-slate-800/40 transition-colors duration-300 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo / Name -->
+                <div class="flex-shrink-0">
+                    <span class="text-xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-500 dark:from-pink-400 dark:to-cyan-400 bg-clip-text text-transparent font-display tracking-wide">
+                        NOVI INDAH.
+                    </span>
+                </div>
+
+                <!-- Navigation Links (Desktop) -->
+                <div class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+                    <a href="#about" class="text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-cyan-400 transition-colors">Tentang</a>
+                    <a href="#experience" class="text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-cyan-400 transition-colors">Pengalaman</a>
+                    <a href="#projects" class="text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-cyan-400 transition-colors">Proyek</a>
+                    <a href="#skills" class="text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-cyan-400 transition-colors">Keahlian</a>
+                    <a href="#contact" class="text-slate-700 hover:text-primary-600 dark:text-slate-200 dark:hover:text-cyan-400 transition-colors">Kontak</a>
+                </div>
+
+                <!-- Controls: Dark Mode, Print -->
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:flex items-center space-x-3">
+                        <!-- Dark Mode Toggle -->
+                        <button id="themeToggle" onclick="toggleDarkMode()" class="p-2 rounded-xl bg-white/50 text-slate-700 hover:bg-white/80 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:bg-slate-800/80 transition-colors shadow-sm" title="Ubah Tema">
+                            <i id="themeIcon" class="fa-solid fa-moon"></i>
+                        </button>
+                        <!-- PDF Print -->
+                        <button onclick="window.print()" class="p-2 rounded-xl bg-white/50 text-slate-700 hover:bg-white/80 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:bg-slate-800/80 transition-colors shadow-sm" title="Cetak Portofolio">
+                            <i class="fa-solid fa-print"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Toggle Button -->
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-white/50 dark:hover:bg-slate-800/50 focus:outline-none md:hidden" title="Buka Menu">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-white/20 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md px-4 pt-2 pb-4 space-y-3 transition-all duration-300">
+            <div class="flex flex-col space-y-2 text-sm font-semibold">
+                <a href="#about" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-100/50 dark:text-slate-200 dark:hover:bg-slate-800/50">Tentang</a>
+                <a href="#experience" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-100/50 dark:text-slate-200 dark:hover:bg-slate-800/50">Pengalaman</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-100/50 dark:text-slate-200 dark:hover:bg-slate-800/50">Proyek</a>
+                <a href="#skills" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-100/50 dark:text-slate-200 dark:hover:bg-slate-800/50">Keahlian</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-100/50 dark:text-slate-200 dark:hover:bg-slate-800/50">Kontak</a>
+            </div>
+            <div class="border-t border-slate-200/50 dark:border-slate-800/50 pt-3 flex flex-wrap gap-2">
+                <!-- Dark Mode Toggle (Mobile) -->
+                <button onclick="toggleDarkMode(); toggleMobileMenu();" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300" title="Ubah Tema">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <!-- PDF Print (Mobile) -->
+                <button onclick="window.print(); toggleMobileMenu();" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300" title="Cetak Portofolio">
+                    <i class="fa-solid fa-print"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative overflow-hidden py-20 sm:py-28 text-center border-b border-white/20 dark:border-slate-800/40">
+        <!-- Floating light blobs for premium depth -->
+        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-pink-300/30 dark:bg-pink-500/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-cyan-300/30 dark:bg-cyan-500/10 rounded-full blur-3xl -z-10 animate-pulse" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <!-- Name & Info -->
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display mb-4">
+                Novi Indah
+            </h1>
+            <p class="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-pink-400 dark:to-cyan-400 bg-clip-text text-transparent mb-8 max-w-2xl mx-auto">
+                Tech, Administration & Digital Business Enthusiast
+            </p>
+
+            <!-- Metadata Badges -->
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold bg-white/75 dark:bg-slate-900/75 border border-white/40 dark:border-slate-800/50 shadow-md backdrop-blur text-slate-700 dark:text-slate-200 transition-all hover:scale-105">
+                    <i class="fa-solid fa-map-location-dot text-rose-500 mr-2"></i>
+                    <span>KALIPARE, MALANG</span>
+                </span>
+                <span class="inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold bg-white/75 dark:bg-slate-900/75 border border-white/40 dark:border-slate-800/50 shadow-md backdrop-blur text-slate-700 dark:text-slate-200 transition-all hover:scale-105">
+                    <i class="fa-solid fa-graduation-cap text-primary-500 dark:text-cyan-400 mr-2"></i>
+                    <span>Fresh Graduate</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- LEFT COLUMN: ABOUT, EXPERIENCE, GOALS (8 Cols) -->
+            <div class="lg:col-span-8 space-y-8">
+                
+                <!-- ABOUT ME -->
+                <section id="about" class="bg-white/70 dark:bg-slate-900/75 border border-white/30 dark:border-slate-800/50 rounded-3xl p-6 sm:p-8 shadow-lg backdrop-blur-md relative overflow-hidden group scroll-mt-20 hover:border-pink-300/50 dark:hover:border-cyan-500/30 transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-2.5 h-full bg-gradient-to-b from-pink-500 to-indigo-500"></div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2.5 rounded-xl bg-pink-100/80 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400">
+                            <i class="fa-solid fa-user-astronaut text-xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold font-display">Tentang Saya</h2>
+                    </div>
+                    <p class="text-slate-700 dark:text-slate-200 leading-relaxed text-base">
+                        Halo, saya Novi Indah, seorang fresh graduate yang memiliki minat tinggi untuk terus belajar dan mengembangkan kemampuan di bidang teknologi, administrasi, dan bisnis digital. Saya menyukai pekerjaan yang membutuhkan ketelitian, penyusunan data, serta pembuatan laporan dan presentasi.
+                        <br><br>
+                        Selama kuliah saya mempelajari berbagai materi seperti kewirausahaan digital, basis data, manajemen proyek, dan analisis bisnis. Saya juga memiliki pengalaman bekerja sebagai marketing perumahan yang membantu saya mengembangkan kemampuan komunikasi, pelayanan pelanggan, dan administrasi.
+                        <br><br>
+                        Saat ini saya masih terus belajar mengenai pengembangan website, database, dan pemanfaatan teknologi digital sebagai bekal untuk karier saya di masa depan.
+                    </p>
+                </section>
+
+                <!-- WORK EXPERIENCE -->
+                <section id="experience" class="bg-white/70 dark:bg-slate-900/75 border border-white/30 dark:border-slate-800/50 rounded-3xl p-6 sm:p-8 shadow-lg backdrop-blur-md relative overflow-hidden group scroll-mt-20 hover:border-cyan-300/50 dark:hover:border-purple-500/30 transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-2.5 h-full bg-gradient-to-b from-cyan-500 to-teal-500"></div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2.5 rounded-xl bg-teal-100/80 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400">
+                            <i class="fa-solid fa-briefcase text-xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold font-display">Pengalaman Kerja</h2>
+                    </div>
+
+                    <!-- Marketing Job Card -->
+                    <div class="relative pl-6 border-l-2 border-slate-300 dark:border-slate-700 space-y-2">
+                        <!-- timeline bullet -->
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white dark:border-slate-900"></div>
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-50">Marketing Perumahan</h3>
+                            <span class="px-3 py-1 text-xs font-bold rounded-full bg-teal-100/80 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300">Freelance / Kontrak</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-500 dark:text-slate-400">Agensi Properti & Developer Perumahan</p>
+                        <p class="text-slate-700 dark:text-slate-200 leading-relaxed text-sm pt-2">
+                            Melayani calon pelanggan secara ramah, memberikan informasi komprehensif mengenai unit properti, menindaklanjuti secara aktif dan ramah kepada calon pembeli, serta secara rapi menyusun administrasi penjualan.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- PROJECTS SECTION -->
+                <section id="projects" class="bg-white/70 dark:bg-slate-900/75 border border-white/30 dark:border-slate-800/50 rounded-3xl p-6 sm:p-8 shadow-lg backdrop-blur-md relative overflow-hidden scroll-mt-20 hover:border-violet-300/50 dark:hover:border-violet-500/30 transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-2.5 h-full bg-gradient-to-b from-indigo-500 to-violet-500"></div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2.5 rounded-xl bg-indigo-100/80 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400">
+                            <i class="fa-solid fa-diagram-project text-xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold font-display">Proyek Kuliah & Praktik</h2>
+                    </div>
+
+                    <!-- Custom Interactive Grid of Projects -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Proyek 1 -->
+                        <div class="p-5 rounded-2xl border border-white/40 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 hover:border-pink-400/50 dark:hover:border-cyan-400/50 hover:bg-white/60 dark:hover:bg-slate-900/60 transition-all duration-300 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2 text-rose-500 dark:text-pink-400">
+                                <i class="fa-brands fa-shopee text-lg"></i>
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100">Analisis Bisnis Shopee</h4>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+                                Melakukan analisis mendalam mengenai ekosistem bisnis digital Shopee, mencakup model monetisasi, strategi akuisisi, dan retensi pengguna.
+                            </p>
+                        </div>
+                        <!-- Proyek 2 -->
+                        <div class="p-5 rounded-2xl border border-white/40 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 hover:border-pink-400/50 dark:hover:border-cyan-400/50 hover:bg-white/60 dark:hover:bg-slate-900/60 transition-all duration-300 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2 text-sky-500 dark:text-cyan-400">
+                                <i class="fa-solid fa-laptop-code text-lg"></i>
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100">Konsep App Perumahan</h4>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+                                Merancang skema arsitektur dan rancangan antarmuka aplikasi terpadu penjualan perumahan untuk mempermudah calon pembeli.
+                            </p>
+                        </div>
+                        <!-- Proyek 3 -->
+                        <div class="p-5 rounded-2xl border border-white/40 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 hover:border-pink-400/50 dark:hover:border-cyan-400/50 hover:bg-white/60 dark:hover:bg-slate-900/60 transition-all duration-300 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2 text-amber-500 dark:text-amber-400">
+                                <i class="fa-solid fa-database text-lg"></i>
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100">Tugas Basis Data</h4>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+                                Mendesain rancangan ERD (Entity Relationship Diagram), normalisasi tabel, serta pembuatan query penarikan data dasar.
+                            </p>
+                        </div>
+                        <!-- Proyek 4 -->
+                        <div class="p-5 rounded-2xl border border-white/40 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 hover:border-pink-400/50 dark:hover:border-cyan-400/50 hover:bg-white/60 dark:hover:bg-slate-900/60 transition-all duration-300 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2 text-emerald-500 dark:text-emerald-400">
+                                <i class="fa-solid fa-chart-line text-lg"></i>
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100">Lean Startup & Cust Dev</h4>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+                                Memvalidasi model solusi bisnis ke target konsumen potensial nyata, mengeksplorasi feedback, dan merumuskan MVP (Minimum Viable Product).
+                            </p>
+                        </div>
+                        <!-- Proyek 5 (New added) -->
+                        <div class="p-5 rounded-2xl border border-white/40 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 hover:border-pink-400/50 dark:hover:border-cyan-400/50 hover:bg-white/60 dark:hover:bg-slate-900/60 transition-all duration-300 shadow-sm md:col-span-2">
+                            <div class="flex items-center gap-2 mb-2 text-indigo-500 dark:text-indigo-400">
+                                <i class="fa-solid fa-list-check text-lg"></i>
+                                <h4 class="font-bold text-slate-900 dark:text-slate-100">Penyusunan Laporan Manajemen Proyek</h4>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+                                Mengorganisasi target pencapaian proyek akademis, penjadwalan timeline kerja (Gantt Chart), dan manajemen risiko dasar demi penyelesaian proyek yang terukur.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TUJUAN KARIER -->
+                <section class="bg-gradient-to-br from-indigo-600/90 to-purple-600/90 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden backdrop-blur-sm border border-white/20">
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/15 rounded-full blur-2xl"></div>
+                    <div class="absolute -left-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+                    <div class="relative z-10 space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 rounded-xl bg-white/15 text-white">
+                                <i class="fa-solid fa-bullseye text-xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold font-display">Tujuan</h2>
+                        </div>
+                        <p class="text-white/95 leading-relaxed text-base italic">
+                            "Saya ingin terus mengembangkan kemampuan di bidang teknologi dan bisnis digital serta memperoleh pengalaman kerja yang dapat meningkatkan keterampilan saya baik secara teknis maupun profesional."
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- RIGHT COLUMN: SKILLS & TOOLS (4 Cols) -->
+            <div id="skills" class="lg:col-span-4 space-y-8 scroll-mt-20">
+                
+                <!-- SOFTWARE / APPLICATION SKILLS -->
+                <div class="bg-white/70 dark:bg-slate-900/75 border border-white/30 dark:border-slate-800/50 rounded-3xl p-6 shadow-lg backdrop-blur-md">
+                    <h3 class="text-lg font-bold font-display mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-laptop text-indigo-500 dark:text-cyan-400"></i>
+                        Aplikasi & Software
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Group 1: Microsoft Office -->
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-2">Microsoft Office</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 dark:bg-slate-850/50 border border-white/30 dark:border-slate-800/50">
+                                    <i class="fa-solid fa-file-word text-blue-500 text-sm"></i>
+                                    <span class="text-xs font-bold">Word</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 dark:bg-slate-850/50 border border-white/30 dark:border-slate-800/50">
+                                    <i class="fa-solid fa-file-excel text-emerald-600 text-sm"></i>
+                                    <span class="text-xs font-bold">Excel</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 dark:bg-slate-850/50 border border-white/30 dark:border-slate-800/50 col-span-2">
+                                    <i class="fa-solid fa-file-powerpoint text-orange-500 text-sm"></i>
+                                    <span class="text-xs font-bold">PowerPoint</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group 2: Google Workspace -->
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-2">Google Workspace</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 dark:bg-slate-850/50 border border-white/30 dark:border-slate-800/50">
+                                    <i class="fa-solid fa-file-lines text-sky-400 text-sm"></i>
+                                    <span class="text-xs font-bold">Docs</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 dark:bg-slate-850/50 border border-white/30 dark:border-slate-800/50">
+                                    <i class="fa-solid fa-table text-emerald-500 text-sm"></i>
+                                    <span class="text-xs font-bold">Sheets</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-white/50 dark:bg-slate-850/50 border border-white/30 dark:border-slate-800/50 col-span-2">
+                                    <i class="fa-solid fa-chalkboard-user text-amber-500 text-sm"></i>
+                                    <span class="text-xs font-bold">Slides</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BUSINESS & TECH KNOWLEDGE -->
+                <div class="bg-white/70 dark:bg-slate-900/75 border border-white/30 dark:border-slate-800/50 rounded-3xl p-6 shadow-lg backdrop-blur-md">
+                    <h3 class="text-lg font-bold font-display mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-amber-500 dark:text-yellow-400"></i>
+                        Pengetahuan
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-2 text-xs font-semibold rounded-xl bg-indigo-50/80 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 border border-indigo-100/30">
+                            Dasar Basis Data
+                        </span>
+                        <span class="px-3 py-2 text-xs font-semibold rounded-xl bg-indigo-50/80 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 border border-indigo-100/30">
+                            Dasar Kewirausahaan Digital
+                        </span>
+                        <span class="px-3 py-2 text-xs font-semibold rounded-xl bg-teal-50/80 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300 border border-teal-100/30">
+                            Business Model Canvas
+                        </span>
+                        <span class="px-3 py-2 text-xs font-semibold rounded-xl bg-teal-50/80 dark:bg-teal-950/40 text-teal-800 dark:text-teal-300 border border-teal-100/30">
+                            Value Proposition Canvas
+                        </span>
+                        <span class="px-3 py-2 text-xs font-semibold rounded-xl bg-rose-50/80 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 border border-rose-100/30">
+                            Lean Startup (dasar)
+                        </span>
+                        <span class="px-3 py-2 text-xs font-semibold rounded-xl bg-amber-50/80 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-100/30">
+                            Manajemen Proyek (dasar)
+                        </span>
+                    </div>
+                </div>
+
+                <!-- SOFT SKILLS -->
+                <div class="bg-white/70 dark:bg-slate-900/75 border border-white/30 dark:border-slate-800/50 rounded-3xl p-6 shadow-lg backdrop-blur-md">
+                    <h3 class="text-lg font-bold font-display mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-brain text-emerald-500 dark:text-emerald-400"></i>
+                        Soft Skill
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Traits Progress representation -->
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Teliti</span>
+                                <span class="text-emerald-500 dark:text-emerald-400">95%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-200/50 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 dark:bg-emerald-400 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Bertanggung jawab</span>
+                                <span class="text-primary-500 dark:text-cyan-400">90%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-200/50 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary-500 dark:bg-cyan-400 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Mudah belajar hal baru</span>
+                                <span class="text-pink-500">95%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-200/50 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-pink-500 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1">
+                                <span>Dapat bekerja sama dalam tim</span>
+                                <span class="text-indigo-500 dark:text-indigo-400">88%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-200/50 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-indigo-500 dark:bg-indigo-400 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Core Badges -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-white/80 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 shadow-sm">
+                                <i class="fa-solid fa-comments mr-1.5 text-primary-500 dark:text-cyan-400"></i> Komunikatif
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-white/80 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 shadow-sm">
+                                <i class="fa-solid fa-shield-halved mr-1.5 text-amber-500"></i> Mampu beradaptasi
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTACT BOX -->
+                <div id="contact" class="bg-gradient-to-br from-slate-900/90 to-slate-950/95 border border-slate-800 rounded-3xl p-6 shadow-xl text-white scroll-mt-20 backdrop-blur-sm">
+                    <h3 class="text-lg font-bold font-display mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-address-book text-cyan-400"></i>
+                        Hubungi Saya
+                    </h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                        Tertarik untuk bekerja sama, membutuhkan support administrasi digital, bisnis, atau proyek pemasaran? Kontak saya sekarang.
+                    </p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="text-xs">
+                                <p class="text-slate-500 font-bold uppercase">Lokasi</p>
+                                <p class="font-semibold">Kalipare, Malang, Jawa Timur</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-8.5 h-8.5 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div class="text-xs">
+                                <p class="text-slate-500 font-bold uppercase">Status Ketersediaan</p>
+                                <p class="font-semibold">Full-time / Remote / Freelance</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Open Message Trigger -->
+                    <button onclick="openMockContactModal()" class="w-full mt-5 py-3 px-4 bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 text-white font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/10">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Kirim Pesan Penawaran
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- MOCK CONTACT MODAL -->
+    <div id="contactModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white/95 dark:bg-slate-900/95 border border-white/20 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative transition-transform transform scale-95 duration-300" id="modalContainer">
+            <button onclick="closeMockContactModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-xl font-bold font-display mb-2 flex items-center gap-2 text-slate-900 dark:text-white">
+                <i class="fa-solid fa-envelope-circle-check text-indigo-500 dark:text-cyan-400"></i>
+                Kirim Pesan
+            </h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mb-4">
+                Kirim pesan kerja sama langsung untuk Novi Indah (Simulasi Kontak Lokal).
+            </p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-400 dark:text-slate-500 mb-1">Nama Pengirim</label>
+                    <input type="text" id="senderName" placeholder="Contoh: PT. Maju Berdikari" class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-400 dark:text-slate-500 mb-1">Pesan Penawaran</label>
+                    <textarea id="senderMsg" rows="3" placeholder="Tuliskan posisi atau tawaran kerja di sini..." class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-cyan-400"></textarea>
+                </div>
+                <button onclick="submitMockMessage()" class="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-700 hover:to-cyan-600 text-white font-bold rounded-2xl text-xs transition-colors shadow-md">
+                    Kirim Pesan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION BOX (Saves Alerts) -->
+    <div id="toastMessage" class="fixed bottom-5 right-5 z-50 p-4 bg-slate-900/95 text-white rounded-2xl shadow-2xl border border-slate-800 flex items-center gap-3 transition-all duration-300 translate-y-20 opacity-0 pointer-events-none backdrop-blur-md">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastText" class="text-xs font-semibold">Data berhasil diperbarui!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white/40 dark:bg-slate-950/50 border-t border-white/20 dark:border-slate-900/50 py-8 transition-colors duration-300 relative z-10 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                &copy; <span id="currentYear">2026</span> Novi Indah. All Rights Reserved.
+            </p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Didesain khusus dengan cinta & warna hologram mengalir di Kalipare, Malang, Jawa Timur.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Set year dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Load profile theme
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('novi_theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                updateThemeIcon(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeIcon(false);
+            }
+        });
+
+        // Mobile Navigation Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = 'fa-solid fa-xmark text-lg';
+            } else {
+                menu.classList.add('hidden');
+                icon.className = 'fa-solid fa-bars text-lg';
+            }
+        }
+
+        // Dark mode switching logic
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('novi_theme', isDark ? 'dark' : 'light');
+            updateThemeIcon(isDark);
+            showToast(isDark ? 'Mode Gelap diaktifkan!' : 'Mode Terang diaktifkan!', 'fa-moon');
+        }
+
+        function updateThemeIcon(isDark) {
+            const themeIcon = document.getElementById('themeIcon');
+            if (isDark) {
+                themeIcon.className = 'fa-solid fa-sun text-amber-400 animate-spin-slow';
+            } else {
+                themeIcon.className = 'fa-solid fa-moon text-indigo-700';
+            }
+        }
+
+        // Mock Contact Modals
+        function openMockContactModal() {
+            const modal = document.getElementById('contactModal');
+            const modalContainer = document.getElementById('modalContainer');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContainer.classList.remove('scale-95');
+                modalContainer.classList.add('scale-100');
+            }, 10);
+        }
+
+        // Close Modal
+        function closeMockContactModal() {
+            const modal = document.getElementById('contactModal');
+            const modalContainer = document.getElementById('modalContainer');
+            modalContainer.classList.remove('scale-100');
+            modalContainer.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        // Message Submit Simulation
+        function submitMockMessage() {
+            const name = document.getElementById('senderName').value.trim();
+            const msg = document.getElementById('senderMsg').value.trim();
+            
+            if (!name || !msg) {
+                showToast('Mohon isi nama dan pesan terlebih dahulu!', 'fa-triangle-exclamation');
+                return;
+            }
+
+            closeMockContactModal();
+            showToast(`Terima kasih ${name}, pesan simulasi berhasil dikirim!`, 'fa-envelope-circle-check');
+            
+            // Clear inputs
+            document.getElementById('senderName').value = '';
+            document.getElementById('senderMsg').value = '';
+        }
+
+        // Toasts Helper
+        function showToast(message, iconName = 'fa-circle-check') {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastText.textContent = message;
+            toastIcon.className = `fa-solid ${iconName} text-emerald-400`;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
